@@ -1,0 +1,51 @@
+---
+import { PROJECTS } from '../consts';
+---
+
+<aside class="sidebar">
+	<h2>Projects</h2>
+	<ul>
+		{
+			PROJECTS.map((project) => (
+				<li>
+					<a href={project.href}>{project.title}</a>
+				</li>
+			))
+		}
+	</ul>
+</aside>
+<style>
+	.sidebar {
+		width: 200px;
+		flex-shrink: 0;
+	}
+	.sidebar h2 {
+		font-size: 1.1em;
+		margin-bottom: 0.75em;
+	}
+	.sidebar ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5em;
+	}
+	.sidebar a {
+		text-decoration: none;
+		color: rgb(var(--gray-dark));
+	}
+	.sidebar a:hover {
+		color: var(--accent);
+	}
+	@media (max-width: 720px) {
+		.sidebar {
+			width: 100%;
+		}
+		.sidebar ul {
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 1em;
+		}
+	}
+</style>

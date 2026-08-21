@@ -122,6 +122,30 @@ hr {
 	}
 }
 
+.page-layout {
+	display: flex;
+	align-items: flex-start;
+	gap: 2em;
+	max-width: 1040px;
+	margin: auto;
+	padding: 0 1em;
+}
+.page-layout > main {
+	width: auto;
+	max-width: 100%;
+	margin: 0;
+	padding: 3em 0;
+}
+@media (max-width: 720px) {
+	.page-layout {
+		flex-direction: column;
+		padding: 0 1em;
+	}
+	.page-layout > main {
+		padding: 1em 0;
+	}
+}
+
 .sr-only {
 	border: 0;
 	padding: 0;
