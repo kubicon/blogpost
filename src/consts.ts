@@ -10,6 +10,6 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
-	{ title: 'Project 1', href: '#' },
-	{ title: 'Project 2', href: '#' },
+	{ title: 'Project 1', href: '/projects/project-1' },
+	{ title: 'Project 2', href: '/projects/project-2' },
 ];
