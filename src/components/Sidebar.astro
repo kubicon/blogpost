@@ -1,36 +1,72 @@
 ---
-import { PROJECTS } from '../consts';
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <aside class="sidebar">
-	<h2>Projects</h2>
-	<ul>
-		{
-			PROJECTS.map((project) => (
-				<li>
-					<a href={project.href}>{project.title}</a>
-				</li>
-			))
-		}
-	</ul>
-	<h2>Pages</h2>
-	<ul>
-		<li><a href="/about">About Me</a></li>
-	</ul>
+	<h2><a href="/about">About Me</a></h2>
+	<details class="projects">
+		<summary>Projects</summary>
+		<ul>
+			{
+				projects.map((project) => (
+					<li>
+						<a href={`/projects/${project.id}/`}>{project.data.title}</a>
+					</li>
+				))
+			}
+		</ul>
+	</details>
 </aside>
 <style>
 	.sidebar {
 		width: 200px;
 		flex-shrink: 0;
 	}
-	.sidebar h2 {
+	.sidebar h2,
+	.projects summary {
 		font-size: 1.1em;
-		margin-bottom: 0.75em;
+		font-weight: bold;
+		line-height: 1.2;
+		margin: 0 0 1em 0;
+	}
+	.sidebar h2 a {
+		text-decoration: none;
+		color: rgb(var(--gray-dark));
+	}
+	.sidebar h2 a:hover {
+		color: var(--accent);
+	}
+	.projects summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		cursor: pointer;
+		color: rgb(var(--gray-dark));
+		list-style: none;
+	}
+	.projects summary::-webkit-details-marker {
+		display: none;
+	}
+	.projects summary::marker {
+		content: '';
+	}
+	.projects summary::after {
+		content: '▸';
+		display: inline-block;
+		margin-left: 0.4em;
+		transition: transform 0.15s ease;
+	}
+	.projects[open] summary::after {
+		transform: rotate(90deg);
 	}
 	.sidebar ul {
 		list-style: none;
-		margin: 0;
-		padding: 0;
+		margin: 0.75em 0 0 0;
+		padding: 0 0 0 1.1em;
 		display: flex;
 		flex-direction: column;
 		gap: 0.5em;
@@ -45,11 +81,6 @@ import { PROJECTS } from '../consts';
 	@media (max-width: 720px) {
 		.sidebar {
 			width: 100%;
-		}
-		.sidebar ul {
-			flex-direction: row;
-			flex-wrap: wrap;
-			gap: 1em;
 		}
 	}
 </style>

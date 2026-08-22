@@ -7,7 +7,7 @@ import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 import Sidebar from '../components/Sidebar.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = Omit<CollectionEntry<'blog'>['data'], 'pubDate'> & { pubDate?: Date };
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
@@ -53,6 +53,21 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			.prose h3 {
+				font-size: 0.95em;
+				font-weight: bold;
+				text-transform: uppercase;
+				letter-spacing: 0.04em;
+				color: rgb(var(--gray));
+				margin: 2em 0 0.5em 0;
+				padding-top: 1em;
+				border-top: 1px solid rgb(var(--gray-light));
+			}
+			.prose h3:first-of-type {
+				margin-top: 0;
+				padding-top: 0;
+				border-top: none;
+			}
 		</style>
 	</head>
 
@@ -62,21 +77,27 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			<Sidebar />
 			<main>
 				<article>
-					<div class="hero-image">
-						{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
-					</div>
+					{
+						heroImage && (
+							<div class="hero-image">
+								<Image width={1020} height={510} src={heroImage} alt="" />
+							</div>
+						)
+					}
 					<div class="prose">
 						<div class="title">
-							<div class="date">
-								<FormattedDate date={pubDate} />
-								{
-									updatedDate && (
-										<div class="last-updated-on">
-											Last updated on <FormattedDate date={updatedDate} />
-										</div>
-									)
-								}
-							</div>
+							{
+								pubDate && (
+									<div class="date">
+										<FormattedDate date={pubDate} />
+										{updatedDate && (
+											<div class="last-updated-on">
+												Last updated on <FormattedDate date={updatedDate} />
+											</div>
+										)}
+									</div>
+								)
+							}
 							<h1>{title}</h1>
 							<hr />
 						</div>

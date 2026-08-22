@@ -85,6 +85,16 @@ input {
 }
 table {
 	width: 100%;
+	border-collapse: collapse;
+}
+th,
+td {
+	text-align: left;
+	padding: 0.4em 0.8em 0.4em 0;
+	border-bottom: 1px solid rgb(var(--gray-light));
+}
+th {
+	color: rgb(var(--black));
 }
 img {
 	max-width: 100%;
@@ -129,6 +139,7 @@ hr {
 	max-width: 1040px;
 	margin: auto;
 	padding: 0 1em;
+	margin-top: 2em;
 }
 .page-layout > main {
 	width: auto;
