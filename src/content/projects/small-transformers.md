@@ -9,9 +9,9 @@ pubDate: '2026-08-20'
 
 I was playing with the addition again. I wanted to try some of the tricks used in the small models, whether they would generalize to the  multiplication. So I tried to add RMS norm to the Q and K outputs, I tried to create multiple Q heads (but keep single K and V), I tried RoPE. I could not get convergence with any of those, when I decreased the size of the model. Could be unlucky, could be skill issue,
 
-I tried to reduce dimensionality of the embedding from 7 to 6, which would reduce the parameters from 651 to 534, but even when trying couple of samples I could not get it to work. Nice thing is that based on the first part of the training, where you train on the instances with at most 3 digits, based on the loss, you can already tell whether the run will be successful or not. This saves quite a lot of time when running experiments, as it is roughly 2000 iterations. Well, maybe it is not that good of a predictor. I just had run where the 3 digits training worked well, then the 6 digit training just did not converge. I think that the embedding of size 6 cannot be done naively without other tricks I did not incorporate yet (like factorization).
+I tried to reduce dimensionality of the embedding from 7 to 6, which would reduce the parameters from 651 to 534, but even when trying couple of samples I could not get it to work. Nice thing is that based on the first part of the training, where you train on the instances with at most 3 digits, based on the loss, you can already tell whether the run will be successful or not. This saves quite a lot of time when running experiments, as it is roughly 2000 iterations. Well, maybe it is not that good of a predictor. I just had run where the 3 digits training worked well, then the 6 digit training just did not converge. I think that the embedding of size 6 cannot be done naively without other tricks I did not incorporate yet (like factorization). I decided to run a sweep through 15 seeds to see whether any of them would work and the best result only got accuracy 50%. A lot of the runs get 0%.
 
-However, I think the Qwen style transformer (more Q-heads than KV-heads) may be a good idea to try in other projects.
+I think the Qwen style transformer (more Q-heads than KV-heads) may be a good idea to try in other projects, especially with the diffusion models.
 
 
 
