@@ -8,6 +8,8 @@ import { defineConfig, fontProviders } from 'astro/config';
 export default defineConfig({
 	site: 'https://kubicekondrej.com',
 	integrations: [mdx(), sitemap()],
+	// The about page is the site's landing page; keep old links working.
+	redirects: { '/about': '/' },
 	fonts: [
 		{
 			provider: fontProviders.local(),

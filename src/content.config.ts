@@ -29,4 +29,15 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { blog, projects };
+const pages = defineCollection({
+	// Load Markdown and MDX files in the `src/content/pages/` directory.
+	// These hold the prose for standalone pages (about, home, ...).
+	loader: glob({ base: './src/content/pages', pattern: '**/*.{md,mdx}' }),
+	// Type-check frontmatter using a schema
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+	}),
+});
+
+export const collections = { blog, projects, pages };
