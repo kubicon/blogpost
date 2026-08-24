@@ -1,7 +1,7 @@
 ---
 title: 'Policy-gradients for Poker'
 description: ''
-pubDate: '2026-08-23'
+pubDate: '2026-08-22'
 ---
 
 ### August 23, 2026
