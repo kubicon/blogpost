@@ -4,6 +4,19 @@ description: 'Small transformers for algorithmic tasks'
 pubDate: '2026-08-20'
 ---
 
+### August 24, 2026
+
+I have trained a transformer for multiplication. The final goal was multiplying 10-digit number with 1-digit one. The goal of this was just to verify whether the transformer can do at least this simple task before moving to more digits as a second operand. I have used following schedule in format (first operand digits, second operand digts, grad_steps): (2, 1, 2000), (4, 1, 6000), (6, 1, 12000), (8, 1, 30000), (10, 1, 50000). I used big model, because this is still just checking out whether the transformer can or cannot do it, so it was exactly 120 000 parameters. Unsurprisingly it takes forever, but at the end, the model gets there and it can do it. So for now I ran another experiment with schedule (2, 1, 2000), (2, 2, 6000), (4, 2, 12000), (4, 3, 30000), (6, 3, 50000). 
+
+I am quite interested in these results. For the 1-digit multiplication I have used single-layer transformer with 4 heads. I wonder whether it is even possible to learn efficient multiplication in a single layer, because the naive multiplication approach often requires n+1 steps (where n is the size of the larger operand). Also some papers I have seen argue that without the CoT, the transformers just cannot learn multiplication. We will see about this!
+
+The run did not finish yet, but I am quite pessimistic of the results. When learning the first part of multiplying 2 and 1 digit numbers, the loss goes down to 10^-5, which is unsurprising, it is easy task, when you go to the 2 and 2 digit numbers, the loss does not seem to go below 0.05. Maybe it just needs more training, but I do not know how much. I have tried to just learn the 2,2 with the same architecture. Let's see how it goes, if it does not work, I'll try increasing the depth.
+
+If you run training for purely 2-digits (still depth 1), it takes roughly 100k gradient steps to get to 100% accuracy and it is unstable as hell (between checkpoints it sometimes drops below 90%). That is not what I expected. When you increase the depth of the transformer to 2, it converges in roughly 4000 steps and it is more stable, but still not the most stable thing in the world. Moving to transformer with depth 3 for multiplying 3-digit numbers, it again works, but the training slows down significantly. Even after 100k steps, you are not able to get clear 100% accuracy. Mostly it sits at around 98%. 
+
+I am thinking that maybe teh weight decay from AdamW could be an issue in these kinds of tasks, because you may be at 100%, but it just pushes you out of it. Tried to remove the weight decay, and it is true that there are not these weird spikes, but the whole convergence is much slower.
+
+When making the first operand of the 2-digit multiplication larger, the whole training seems to stop converging. It took quite a lot of iterations even with the 2,2, but when you go up to 10,2, the training becomes tediously slow, which I would take as failure.
 
 ### August 22, 2026
 
