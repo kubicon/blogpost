@@ -4,6 +4,21 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+
+### August 27, 2026
+
+With Gemini, I think I was able to find first draft of the proof for the f(x, y) = xy case. It is possible to derive closed-form solution for the fixed magnet, so this can be used as a building block for the more general proof.
+
+I think that in the case, where you have a pure Nash equilibrium, the function is Lipschitz, the proof will be quite straight-forward. I am in middle of working on it, and I think it can be really similar to that of MMD.
+
+
+
+
+### August 26, 2026
+When I come back to a codebase after some time, I am always slightly confused about what is going on. This has happened today. In a simple game, it is known that f(x, y)= xy does not converge using gradient ascent descent. So I ran my script that I had prepared over month ago for this, and it did converge. After discussion with Claude it was because of the poor setting, where instead of moving the Gaussian, I used the grid and computed a categorical distribution over this grid, which resulted in very quickly finding Nash. I changed the config, ran it and it did not converge. So I added the magnet, because I recall that with the magnet in the Gaussian space, it worked. I ran the code and it diverged. In that moment I was questioning what I remember and what is true. Luckily I found out that the problem was that I used unbounded variance for the Gaussian and sampling very off can push the dynamics in a way  it does not converge. This is a nice observation I should keep in mind when writing the paper. When I limited the variance, everything suddenly worked.
+
+I would like to have a direct proof which says: This is the setting for hyperparameters that needs to be satisfied such that it works. Similarly, the MMD shows that the magnet needs to be greater than a Lipschitz constant. I know that these types of bounds are useless because in the big problems you cannot extract those constants from the problem definition, so you just vibe the hyperparameter and hope for the best. But it makes the result stronger.
+
 ### August 23, 2026
 I implemented the combination of MMD and SAC in my codebase (https://github.com/kubicon/rlg) which I use for experimenting with policy-gradient algorithms and I ran the training in HUNL. Then I again matched it against Slumbot. Good news is that it does not suck as much as the discrete version, but still it loses roughly -0.2 bb/hand. This is not winning! I think the best part about it is that it completely avoids the problem with incompatible abstraction. There is no abstraction now, so during training the algorithm has likely seen all kinds of bets, even those that the Slumbot will make. I still believe this approach.
 

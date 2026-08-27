@@ -4,6 +4,18 @@ description: 'Replacing auto-regressive models with diffusion language models.'
 pubDate: '2026-08-13'
 ---
 
+### August 25, 2026
+
+The training of the autoregressive model was rnning overnight. Now I started the training from the checkpoint. The cluster I use at the university seems to be  Let's see how it goes.
+
+### August 24, 2026
+
+I tried to use Qwen-like transformer -> Several Q heads for single K and V heads. I did it by reducing the number of KV heads. I know it is mainly a inference-time speed up (and memory-wise). But it did not help with training at all. The training speed was the same and the convergence was going slightly slower. So in the end, it did not buy anything.
+
+I was thinking about other thing I heard people do with diffusion models. You start the training with the autoregressive model (as it learns quicker) and then you use these weights as warm-start for the diffusion. The only thing the diffusion then learns is the bidirectional attention within the denoising block (it keeps learning the other parts, but at least not from scratch).
+
+On the paper this idea makes sense, so I wanted to see how it goes. I reimplemented the nanoGPT in Jax (such that it uses the exact same networks as the diffusion) and I ran the training. Weirdly my Jax implementation of nanoGPT is 2-times slower! Even after telling Opus to optimize the code, it is still 1.5 times slower. My dream about Jax being always superior is breaking. I will try to find out what is going on later, but kudos to PyTorch for being much faster than I thought. 
+
 ### August 21, 2026
 
 I have tried few things to make this better. Not sure whether I can optimize the code to get some huge gains. So I at least tried to find out what happens when I decrease the block-size (if the block-size = 1, you get the usual autoregressive model). In the previous experiments I have used block-size 64 and in the new one I used 16 and 32. Besides that, I have tried to use AdamW, instead of Muon which I was using so far. Even with 4-times smaller learning rate, the AdamW was comparable to Muon. But the decreased block-size slightly improved the loss. But only slighly, I do not think it is comparable to the autoregressive model.
