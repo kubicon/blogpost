@@ -14,7 +14,7 @@ The run did not finish yet, but I am quite pessimistic of the results. When lear
 
 If you run training for purely 2-digits (still depth 1), it takes roughly 100k gradient steps to get to 100% accuracy and it is unstable as hell (between checkpoints it sometimes drops below 90%). That is not what I expected. When you increase the depth of the transformer to 2, it converges in roughly 4000 steps and it is more stable, but still not the most stable thing in the world. Moving to transformer with depth 3 for multiplying 3-digit numbers, it again works, but the training slows down significantly. Even after 100k steps, you are not able to get clear 100% accuracy. Mostly it sits at around 98%. 
 
-I am thinking that maybe teh weight decay from AdamW could be an issue in these kinds of tasks, because you may be at 100%, but it just pushes you out of it. Tried to remove the weight decay, and it is true that there are not these weird spikes, but the whole convergence is much slower.
+I am thinking that maybe the weight decay from AdamW could be an issue in these kinds of tasks, because you may be at 100%, but it just pushes you out of it. Tried to remove the weight decay, and it is true that there are not these weird spikes, but the whole convergence is much slower.
 
 When making the first operand of the 2-digit multiplication larger, the whole training seems to stop converging. It took quite a lot of iterations even with the 2,2, but when you go up to 10,2, the training becomes tediously slow, which I would take as failure.
 

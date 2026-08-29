@@ -4,9 +4,17 @@ description: 'Replacing auto-regressive models with diffusion language models.'
 pubDate: '2026-08-13'
 ---
 
+### August 29, 2026
+
+The results fromthe last experiment, which was pre-training with autoregressive and then continue the training with diffusion were qiute underwhelming. Good news is that ~4000 diffusion iterations without the autoregressive pretraining the loss goes to 4.2, with pretraining it is 4. I thought that the gains would be more substantial.
+
+I was already mentioning this in some of my prior notes. Comparing the autoregressive with diffusion models just based on loss seems unfair. Intuitively: If you are decoding 64 words at once based on previous 64 words, you have much more free space to come up with "new" ideas than the autoregressive model.
+
+I think it may be possible to formalize this property. The autoregressive model is just the pure Bayesian generation, wheras the autoregressive model is more of a joint probability.
+
 ### August 25, 2026
 
-The training of the autoregressive model was rnning overnight. Now I started the training from the checkpoint. The cluster I use at the university seems to be  Let's see how it goes.
+The training of the autoregressive model was running overnight. Now I started the training from the checkpoint. The cluster I use at the university seems to be quite crowded for the last couple of days. Let's see how it goes.
 
 ### August 24, 2026
 
