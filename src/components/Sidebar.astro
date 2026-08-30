@@ -8,7 +8,7 @@ const projects = (await getCollection('projects')).sort(
 
 <aside class="sidebar">
 	<h2><a href="/">About Me</a></h2>
-	<details class="projects">
+	<details class="projects" open>
 		<summary>Projects</summary>
 		<ul>
 			{
@@ -23,7 +23,7 @@ const projects = (await getCollection('projects')).sort(
 </aside>
 <style>
 	.sidebar {
-		width: 200px;
+		width: 20%;
 		flex-shrink: 0;
 	}
 	.sidebar h2,

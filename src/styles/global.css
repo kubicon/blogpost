@@ -30,7 +30,7 @@ body {
 	line-height: 1.7;
 }
 main {
-	width: 720px;
+	width: 90%;
 	max-width: calc(100% - 2em);
 	margin: auto;
 	padding: 3em 1em;
@@ -135,8 +135,8 @@ hr {
 .page-layout {
 	display: flex;
 	align-items: flex-start;
-	gap: 2em;
-	max-width: 1040px;
+	gap: 4%;
+	width: 90%;
 	margin: auto;
 	padding: 0 1em;
 	margin-top: 2em;
