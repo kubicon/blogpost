@@ -16,7 +16,7 @@ In imperfect information games, AlphaZero cannot be used, because the underlying
 
 Since the state is not observed, there are several initial states in the subgame. Consider game on the following image, first blue chooses H or T and then red chooses H or T also with corresponding rewards to the red. If the red wants to find a strategy purely in this subgame without solving the whole game, there are 2 states it cannot distinguish between. However, the blue knows which action it has taken, so it knows whether the game is in left or right state.
 
-![Poker hand chart](../../assets/figures/subgame.png)
+![Subgames](../../assets/figures/subgame.png)
 
 The Bayesian approach (b) modifies the subame by adding a chance node which decides in which state the game is with some fixed probability. This probability is often extracted from some blueprint strategy that was precomputed, for example during training. It is quite obvious that if you solve such a subgame, the strategy will play well against the blueprint opponent, but if the actual player used different strategy, the newly computed strategy may be really weak against it. So the worst-case opponent will exploit this knowledge.
 
@@ -30,5 +30,5 @@ The gadget games require to start from the public state, which is a set of all s
 
 I was more focused on games like Dark Chess or Stratego, which have much more hidden information, so this explicit construction is not really possible.
 
-The whole idea of the paper is to use the gadget game, but run the additional training only from the subgame. In that regard the paper have 2 main contributions. It introduces a transformer model that is trained to sample the states based on the distribution required for that particular gadget game. For the unsafe approach it just samples proportional to bluepirnt, for the safe resolving gadget it is unbiased in the opponent's strategy. Second contribution is to train additional actor in the gadget nodes of the resolving gadget (light blue nodes in (c)), which are not present in the original game.
+The whole idea of the paper is to use the gadget game, but run the additional training with the policy-gradient algorithm, where the blueprint is a neural network. In that regard the paper have 2 main contributions. It introduces a transformer model that is trained to sample the states based on the distribution required for that particular gadget game. For the unsafe approach it just samples proportional to bluepirnt, for the safe resolving gadget it is unbiased in the opponent's strategy. Second contribution is to train additional actor in the gadget nodes of the resolving gadget (light blue nodes in (c)), which are not present in the original game.
 

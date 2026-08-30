@@ -4,6 +4,22 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### August 30, 2026
+
+I wanted to provide a non-convergence of the Gaussian reparametrization without magnet to some of my previous reports. But I forgot. But here it is, the first is the tabular version and second is when you use neural networks. I think those plots turned out better than I'd expect. Just seeing that if you do not use magnet, the strategy gradually gets further and further from the optimum is exactly what we wanted to show.
+
+![PPO vs MMD](../../assets/figures/dynamics.png)
+
+![PPO vs MMD neural](../../assets/figures/dynamics_ppo.png)
+
+I was else experimenting with the Kuhn and Leduc Poker with continuous bets. Those games are great for our approach, because they combine the continuous and discrete actions and are sequential. Also since they are quite small, we may also be able to get analytical solution, which is nice. From the first experiment on having a discrete bet it seems that the algorithm finds similar quality of the strategy as the vanilla MMD (it shouldn't be moving the Gaussian head), so I think it passed the sanity check. Weird thing about Leduc with MMD is that there seems to be threshold of roughly 0.35 exploitability. No matter how much you tune hyperparameters I was never able to get any better. Not sure why that is. The game is small enough that I could print the whole strategy and see. But I was lazy to do it, I will probably try this after I finish the work on this paper, as this paper is now a priority.
+
+I am also thinking about some sequential actions. Settings like two player auction, where players bid in some order, and they may change their bids later.
+
+The gradient for the Gaussian head requires computing the integral. So far I tried to estimate it from the neighborhood using the grid (that is why the plots look so nice). I thought that I should try to use Monte Carlo samples instead. That is how the neural version works, so it is a middle-step between those two. Results are still nice.
+
+![PPO vs MMD neural](../../assets/figures/dynamics_sampled.png)
+
 
 ### August 27, 2026
 
