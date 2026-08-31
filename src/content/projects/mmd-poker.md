@@ -12,6 +12,8 @@ What about other distributions? I am not sure, the Gaussian is such a nice and e
 
 When I was writing the proof I noticed that when using multivariate (multidimensional) Gaussian, I just treated each axis separately (each had it's own mean and variance). But the KL divergence itself uses a covariance matrix. That's when I realized the approach I used is not particularly clever. After brief conversation with Gemini, it told me that training the covariance matrix directly is pretty bad idea, because you cannot guarantee it will be positive semi-definite and symmetric. Luckily, I am not the first person dealing with this, so I found out that Cholesky factorization is used for this. I did not learn about that particular decomposition on my linear algebra course. Which surprises me, because the whole decomposition of the symmetric positive semi-definite matrix into a single lower triangular matrix makes quite a lot of sense. I still do not understand SVD decomposition exactly, but this Cholesky factorization seemed easier. Good thing is that it naturally gives you both the symmetricity and definitness. Moreover, during training you do not need to materialize the whole matrix. 
 
+I need to think of a game, where to try this. Some extension of Matching Pennies into multidimensional case would be nice. I would like to see how the magnet helps beyond the 1d toy example.
+
 
 ### August 30, 2026
 
