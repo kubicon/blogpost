@@ -4,6 +4,15 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### August 31, 2026
+
+I was thinking that maybe using the Gaussian reparametrization is not the best thing. Because of the known limitations like the variance always being greater than 0, which limits the convergence. So I was thinking about some other distribution. I tried to use the Exponential family, and by trying I mean I told Claude to implement it. This approach also works, but it is slower and on conceptual level it seems much more difficult. I did not find any benefit from using it. So I guess I'll just skip it for now. 
+
+What about other distributions? I am not sure, the Gaussian is such a nice and easy distribution that I think I'll stick with it. Also it has been studied a lot with SAC, so it makes sense to just use this, then reinventing the wheel.
+
+When I was writing the proof I noticed that when using multivariate (multidimensional) Gaussian, I just treated each axis separately (each had it's own mean and variance). But the KL divergence itself uses a covariance matrix. That's when I realized the approach I used is not particularly clever. After brief conversation with Gemini, it told me that training the covariance matrix directly is pretty bad idea, because you cannot guarantee it will be positive semi-definite and symmetric. Luckily, I am not the first person dealing with this, so I found out that Cholesky factorization is used for this. I did not learn about that particular decomposition on my linear algebra course. Which surprises me, because the whole decomposition of the symmetric positive semi-definite matrix into a single lower triangular matrix makes quite a lot of sense. I still do not understand SVD decomposition exactly, but this Cholesky factorization seemed easier. Good thing is that it naturally gives you both the symmetricity and definitness. Moreover, during training you do not need to materialize the whole matrix. 
+
+
 ### August 30, 2026
 
 I wanted to provide a non-convergence of the Gaussian reparametrization without magnet to some of my previous reports. But I forgot. But here it is, the first is the tabular version and second is when you use neural networks. I think those plots turned out better than I'd expect. Just seeing that if you do not use magnet, the strategy gradually gets further and further from the optimum is exactly what we wanted to show.
