@@ -5,6 +5,13 @@ pubDate: '2026-08-22'
 ---
 
 
+### September 2, 2026
+
+I am working on the proofs for the paper and so far I managed to finalize the one that when you use Gaussian MD with single Gaussian it converges to a fixed point. Sadly it does not state anythinhg about the fixed point, because unlike the Discrete MMD, the optimal solution may lie beyond the feasible space. So in that case the optimal solution may not be Quantal Response Equilibrium. This weakens the paper, but I still think there is a potential in that.
+
+
+Besides that I am about to try the new Poker training after roughly 400k iterations. I hope that the faster per-iteration speed and smarter usage of the allocated resources would allow me to push the performance. When I just checked the strategy it seemed fine (i.e. it does not play nonsense). But the proper test is running against Slumbot. After 3k hands the new checkpoint is winning 0.2bb/hand. I know that having high hopes after so few rounds is naive, but still, it would be awesome to have such results. After 100k hands I am at -0.1 bb/hand. And I rechecked the strategty. It seems that the network is folding much more now, and it is reasonable to do that, when your cards are bad and opponent just raised. Now I am thinking that the problem with the previous runs may have been too long of a training. That even with this approach you eventually go ood. and therefore the strategy will become more and more exploitable in those parts (which breaks the whole story I have right now), but maybe it was something else before. Let's see whether the performance gets better going onwards, or worse.
+
 ### September 1, 2026
 
 Tried new training checkpoints from the HUNL training. It seems they are getting worse, The win-rate against Slumbot went down to -0.4 bb/hand. Not only that but the whole training was slower because of the added transformers for the card encoding and the history encoding. I found some small bugs, like when the mean or variance got out of the bounds, the gradient stopped flowing through them. I do not think this was the main problem, but it is better to avoid it.
