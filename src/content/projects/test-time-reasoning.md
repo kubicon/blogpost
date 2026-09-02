@@ -6,7 +6,7 @@ pubDate: '2026-08-30'
 
 
 ### August 30, 2026
-#### This summarizes all the progress made before starting this blog. Paper will be soon available on arXiv.
+#### This summarizes all the progress made before starting this blog. Paper https://arxiv.org/abs/2608.30635
 
 Consider a large games that takes 100 turns and at each turn the branching factor is 10. At the end there are 10^100 possible situations. If you train any reinforcement learning algorithm in self-play, it is likely that in the second half of the game, that most of the trajectories were not seen during training. So when you are playing against an actual opponent, the performance in these parts rely heavily on the generalization from the training.
 
