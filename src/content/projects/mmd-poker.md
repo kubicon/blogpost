@@ -4,6 +4,12 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### September 3, 2026
+
+I decided to use the PGDA proof. It is the easiest to follow and I do not think it matters that it is not as general and the Mirror Descent proof would be. Even then, it is 3-page proof. So right now the draft already have 7 pages, without introduction and any references. I am trying to think what should I focus on now, there are two important things: 1. Experimental section, baselines etc, 2. Theoretical section, actual proof that the mixture of Gaussians is trainable.
+
+For the experimental section, I think Colonel Blotto is a good game to try. In that game, you have 2 players and N battlefield and M resources. Your goal is to distribute your resources such that the player that there are more battlefields where you have more resources than the opponent. The game itself is one-shot, where you decide immedietly, but I think there will be some extension that makes it sequential. One extension I am thinking of is that you are sending at the battlefields one-by-one sequentially, and everytime you only know whether you have won or not, but not how much. It is similar to Imperfect Information Goofspiel, but the change is that you are trying to win majority of rounds and you do not care about the card itself.
+
 
 ### September 2, 2026
 
