@@ -4,6 +4,14 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### September 9, 2026
+
+I reran the one-shot game experiments, because I fixed NFSP bug and also the problem with the randomized policy networks. I am quite certain that NFSP is fine now, with the Randomized policy networks I am not sure, it seems that different games require different hyperparameter setting to work properly. I think it is fair for the paper, to somehow sweep through different setting and use the best setting for the experiments. Since the mixture of gaussians is less general, it's convergence is much easier, compared to RPN, which are really general, but their learning cannot be done very quickly.
+
+I have also run the sequential games experiments. The runs finished quite quickly, but their evaluation is still running. But the slow evaluation is mainly because I did not want to underestimate the BR comptuation for the exploitability. I have reviewed too many papers where their BR computation was really bad and the authors were then claiming that their method is almost non-exploitable. I understand that some reviewers will complain if your method's exploitability is not near 0, but I think it is better to be honest, than to have these results which are not true.
+
+As for the Poker, training is still running, the performance is getting better, but very slowly. I hope that I will be able to get the draw with Slumbot again. The latest results are still at ~0.1bb/hand. Seeing how slow the improvement is, I am not srue I'll be able to train the discretized MMD for the same time (on the same hardware), to get proper comparison.
+
 ### September 8, 2026
 
 The experiments for the one-shot games finished. I am quite surprised that the other methods does not work very well. Except the discretization, that works very well on the other hand. However, the randomized policy networks seem to be unstable as hell. I did not manage to train it for any game (that does not have pure equilibrium). I have written to Carlos about it, I think it is just poor hyperparameter setting, or some trick that I am missing. Hopefully he'll be able to give me some advice.
