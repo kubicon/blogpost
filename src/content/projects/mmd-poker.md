@@ -4,6 +4,25 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### September 13, 2026
+
+More bad news, the Poker training completely broke. Right after I had first checkpoint from the exploratory run, which was on-par with Slumbot again. I checked what was the problem. And it was surprising, it was the fact that all-in action logit at the beginning of the game went to -infinity. So Nans and infinities started to appear in the network. I fixed this by adding a soft-floor under which the logits cannot go. I am rounding the actions that are played with less than 1% to 0, so there shouldn't be any bias from that.
+
+I also tried the trained Disk Sumo, and the disks are just not hitting each other. I think this is because of several factors: The episodes were too short, the game is symmetrical, so being aggressive is probably not the best way, the physics may be too harsh, so if you tried to be aggresive, you would more likely lose. So to fix this, I added an option to start with the position of the disks randomly. This breaks the symmetry. I also increased the gmae length to twice the size
+
+### September 11, 2026
+
+Bad news, I tried to do the espilon-exploration, still similar behavior. Well slightly, because only one of the 4 seeds broke, but it broke badly. The other seeds went fine. I am not sure what to make of it. I'll try to explore what happened. But it got me thinking. Maybe it is not a good idea to be so focused on the games, but it may be better to focus on robotics. Small mistakes in robotics are not as deteremental as in games. Or at least I hope so. I implemented Disk Sumo, which is a proof of concept, where you are pushing a disk as a player and you are trying to push the other disk out of the board. The training is going on, I will probably work on this and the Kuhn a bit more.
+
+I would probably need to crunch for the next 2 weeks. Abstract deadline is on friday and I would like to at least have some reasonable results by then. There is the Poker one, but I would like to also have the Mujoco ones. I know that you can change abstract later, but it is better to have clear message first.
+
+
+### September 10, 2026
+
+I managed to finish the proof that single Gaussian setting converges to epsilon-Nash in convex-concave games. In the end, I think the proof is easier than the first about the fact that it converges to a fixed point. Our proof goes like this:  Assume an oracle that gives you the fixed point for given magnet. First show that there is only a single magnet, for which the solution is a fixed point. Then you can show the sequence of the oracle solutions is a contraction, not in terms of exploitability, but in terms of geometrical distance. And then you just show that these contraction leads to that fixed point. The equilibrium is not Nash, but epsilon-Nash, because the proof relies on standard deviation sigma > 0. As such part of the proof shows how the strategy space changes for this sigma, and that you still converge to the neighborhood of the Nash.
+
+I also experimented with the sequential games and found out a problem. The exploitability curve has a U shape, first it goes down and then it starts going back up. I found out that the problem is in the "off-paths". Consider you have bets between 0 and 1. And you find out that every bet below 0 can be later exploited by the opponent, so you stop exploring there as a whole. This means that opponent is not updating it's strategy for those low bets. And due to the shared weights of the neural network, the strategy gradually degrades. I tried to fix this problem with epsilon-exploration, where you both explore the discrete actions, but also the bets itself, but the runs take quite a long time, so let's see tommorow how it goes.
+
 ### September 9, 2026
 
 I reran the one-shot game experiments, because I fixed NFSP bug and also the problem with the randomized policy networks. I am quite certain that NFSP is fine now, with the Randomized policy networks I am not sure, it seems that different games require different hyperparameter setting to work properly. I think it is fair for the paper, to somehow sweep through different setting and use the best setting for the experiments. Since the mixture of gaussians is less general, it's convergence is much easier, compared to RPN, which are really general, but their learning cannot be done very quickly.
