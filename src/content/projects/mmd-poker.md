@@ -4,6 +4,12 @@ description: ''
 pubDate: '2026-08-22'
 ---
 
+### September 14, 2026
+
+I was trying several different settings and playing in the disk sumo. And the game just seems boring. The best i could get out of it was that the disks just hit each other and try to push the other out. Which does not happen ofcourse, so I tried to introduce asymmetry, and then it is boring, because they do the same thing, and the stronger just wins. I was surprised by that, becuase I would think that the weaker player would just try to escape. I am thinking whether I can do some RPS version of this, where the strategies are non-transitive. But everything I tried just failed, sadly. I also tried to run the Mujoco experiment, but that was really slow. 5k gradient steps took roughly 4 hours. So I tried to use Mujoco Wrap which is supposed to be much faster, so hopefully it will do something. Also before that I was running the simulator simulation even when the player did not act, so I removed that. I hope this will help. I also want to try more experimenting with Kuhn, after I fixed the off-policy sampling. 
+
+As for the Poker, I am glad I tried to Local best response. Because it seems that the whole training just broke after roughly 30 checkpoints (I ran it until 40). I did not observe it before, because the performance against slumbot was still improving. But from the Local best response run, the exploitability went up to something like 7000 (the best checkpoints were ~1500). So the soft-floor helped, but it was too late, so I had to resume the training from even earlier checkpoint. I continued the training from to non-broken checkpoint and now I am waiting until I'll get assigned GPU at cluster.
+
 ### September 13, 2026
 
 More bad news, the Poker training completely broke. Right after I had first checkpoint from the exploratory run, which was on-par with Slumbot again. I checked what was the problem. And it was surprising, it was the fact that all-in action logit at the beginning of the game went to -infinity. So Nans and infinities started to appear in the network. I fixed this by adding a soft-floor under which the logits cannot go. I am rounding the actions that are played with less than 1% to 0, so there shouldn't be any bias from that.
