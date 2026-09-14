@@ -8,7 +8,7 @@ pubDate: '2026-08-22'
 
 More bad news, the Poker training completely broke. Right after I had first checkpoint from the exploratory run, which was on-par with Slumbot again. I checked what was the problem. And it was surprising, it was the fact that all-in action logit at the beginning of the game went to -infinity. So Nans and infinities started to appear in the network. I fixed this by adding a soft-floor under which the logits cannot go. I am rounding the actions that are played with less than 1% to 0, so there shouldn't be any bias from that.
 
-I also tried the trained Disk Sumo, and the disks are just not hitting each other. I think this is because of several factors: The episodes were too short, the game is symmetrical, so being aggressive is probably not the best way, the physics may be too harsh, so if you tried to be aggresive, you would more likely lose. So to fix this, I added an option to start with the position of the disks randomly. This breaks the symmetry. I also increased the gmae length to twice the size
+I also tried the trained Disk Sumo, and the disks are just not hitting each other. I think this is because of several factors: The episodes were too short, the game is symmetrical, so being aggressive is probably not the best way, the physics may be too harsh, so if you tried to be aggresive, you would more likely lose. So to fix this, I added an option to start with the position of the disks randomly. This breaks the symmetry. I also increased the gmae length to twice the size.
 
 ### September 11, 2026
 
