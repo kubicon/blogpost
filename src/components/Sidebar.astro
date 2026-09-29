@@ -1,8 +1,23 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import { getProjectUpdate } from '../utils/projectDates.mjs';
 
-const projects = (await getCollection('projects')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+const projectsWithDates = await Promise.all(
+	(await getCollection('projects')).map(async (project) => {
+		const { headings } = await render(project);
+		const { date, invalidHeadings } = getProjectUpdate(headings, project.data.pubDate);
+		for (const heading of invalidHeadings) {
+			console.warn(`Invalid update date in ${project.filePath}: ### ${heading}`);
+		}
+		return { project, date };
+	}),
+);
+
+const projects = projectsWithDates.sort(
+	(a, b) =>
+		b.date.valueOf() - a.date.valueOf() ||
+		b.project.data.pubDate.valueOf() - a.project.data.pubDate.valueOf() ||
+		a.project.data.title.localeCompare(b.project.data.title),
 );
 ---
 
@@ -12,7 +27,7 @@ const projects = (await getCollection('projects')).sort(
 		<summary>Projects</summary>
 		<ul>
 			{
-				projects.map((project) => (
+				projects.map(({ project }) => (
 					<li>
 						<a href={`/projects/${project.id}/`}>{project.data.title}</a>
 					</li>
