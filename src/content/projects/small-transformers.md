@@ -4,6 +4,18 @@ description: 'Small transformers for algorithmic tasks'
 pubDate: '2026-08-20'
 ---
 
+### August 8, 2026
+
+I was helping with one paper of a collegue and working on one project for SCIO (company which does a lot of educational projects in Czech Republic) on a project with LLM tutor. So I did not have much time to work on other projects. However, I have tried all the 4 methods with the two-layer transformer and besides diffusion model, which sucks, all were able to reach 7 digit number multiplciation. Even the version which did not do any recurrence nor memory. However, the variance in the training runs is crazy. Some runs finished without learning 4 digit numbers, wheras some went to 8 digits and were still improving (even with the same configuration). I do not like that diffusion models suck, because I like the concept of them, but I guess with these token based tasks, they are just too hard to learn. So this is similar to the langauge diffusion I have tried. But I will try to make it work, because it seems that Diffusion is a good fit for multiplication. 
+
+Then I tried one-layer transformer and here the difference became much mor clear. Both the recurent and memory model were able to learn up to 5 digit multiplication, while the one-layer transformer failed beyond 2 digit number. I used 4 repetitions, so this could be why we cannot go beyond 5. I will try 6 and 8 repetition runs now.
+
+### September 30, 2026
+
+I ran the profiling, one of the things that I found out is that linen.Embbed is the bottleneck in small transformers. I had not found any jax issue about this, so it surprised me. It was weird, because it bottlenecks the backward pass and even weirder is that increasing the batch size increased the time, but super-linearly. That was really surprising to me, and at one point, when the batch was big enough it was only linear increase. I replaced the Embbed with custom layer, which is just one-hot encoding with matrix multiplication. This scales much better in these small models, it is sometimes even 8-times faster.
+
+Because of that I ran profiling job for all the implemented techniques. I would like to see whether there are not some other problems like this. It is much better to find them sooner then later. I will hopefully run the experiments that compare the 4 techniques (or even their combination) over night.
+
 ### September 28, 2026
 
 I finally had some time to work a bit more on this. From the prevous results, I think that just naively learning multiplication will fail. And I think it makes sense, multiplication is O(n log n) operations, so it seems naive to somehow model it efficiently with just forward passing through the network. I know that the network does matrix multplication which is O(N^3) (or O(N^2.3717) with Coppersmith-Winograd), but still, I do not think it can hide behind that. Adding is a linear operations and you can do it with linear passes of single-layer transformer. I am now trying to find a setup where the multplication is learnt without additional supervision. I just don't like when someone gives the model the answer on how to reason and then they feel like it is smart. In other words, I am a full believer in Bitter Lesson. I understand that it is eonugh for tech companies, because in the large models you do not care about the path to the product, you care about the product. That is the reason why RLHF was so good, even if I think it is lazy research idea. Rant over, for the learning without supervision I have these 4 ideas:

@@ -1,0 +1,10 @@
+---
+title: 'Pokemon competition'
+description: 'Kaggle Pokemon TCG AI competition'
+pubDate: '2026-10-08'
+---
+
+### October 8, 2026 
+Kaggle introduced a challenge where teams should train AI models in Pokemon TCG and then match them against each other. It uses limit pool of cards (roughly 1400) and you are pretty free to do whatever with it. The same competition was already running before, but I did not attend, because I noticed too late, which made me quite sad. Luckily now I caught it at the beginning so I have plenty of time to figure something out. I think I have quite a lot of knowledge about how to train RL to play large games, so I am looking forward to work on this project. My approach would be similar to that of Ataraxos from Sam Sokota (https://www.nature.com/articles/s41586-026-11036-y), whom I have met couple of times, especially during my time at CMU. I will not just redo the Ataraxos as I do not like some decisions he made. But I have started with creating few default things that you would need to do, including V-trace, PPO, MMD etc. 
+
+For my design I decided to split the training into two phases that will alternate. The first part is a single player problem of constructing the deck, second is multiplayer problem of playing well. So I created some initial implementation and I want to profile it on GPU to see what is the bottleneck. I would like to have everything running on GPU, but I am not sure whether there are substantial gains from that. Of course, this is one thing I want to test. I am not sure how difficult logic the Pokemon TCG performs, I know that logic of Hearthstone, which is also TCG, is very complicated and doing it on GPU in Jax, will probably be even slower than doing it in the C++ provided by the competition authors. Also the limit size for the models is ~200Mb, meaning I cannot train crazy large model just to avoid the bottleneck of the CPU-GPU transfer. Maybe I could ask Claude to redo the logic into CUDA, but I am not sure whether this is a good idea.
