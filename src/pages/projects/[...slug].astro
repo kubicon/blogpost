@@ -1,4 +1,5 @@
 ---
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { type CollectionEntry, getCollection, render } from 'astro:content';
 import Layout from '../../layouts/BlogPost.astro';
 
@@ -13,10 +14,11 @@ type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
 const { Content } = await render(project);
-const abstractParagraphs = project.data.abstract
-	?.split(/\n\s*\n/)
-	.map((paragraph) => paragraph.trim())
-	.filter(Boolean);
+// The abstract lives in frontmatter, so render its markdown (links etc.) separately.
+const markdown = await createMarkdownProcessor();
+const abstractHtml = project.data.abstract?.trim()
+	? (await markdown.render(project.data.abstract)).code
+	: undefined;
 ---
 
 <Layout
@@ -26,10 +28,10 @@ const abstractParagraphs = project.data.abstract
 	updatedDate={project.data.updatedDate}
 >
 	{
-		abstractParagraphs && abstractParagraphs.length > 0 && (
+		abstractHtml && (
 			<section class="abstract" slot="abstract">
 				<h2>Abstract</h2>
-				{abstractParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+				<Fragment set:html={abstractHtml} />
 			</section>
 		)
 	}
@@ -49,7 +51,7 @@ const abstractParagraphs = project.data.abstract
 		text-align: center;
 		margin: 0 0 0.5em 0;
 	}
-	.abstract p {
+	.abstract :global(p) {
 		font-size: 0.9em;
 		margin: 0.5em 0 0 0;
 	}

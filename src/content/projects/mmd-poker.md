@@ -2,7 +2,7 @@
 title: 'Policy-gradients for Poker'
 description: ''
 pubDate: '2026-08-22'
-abstract: "Poker is usually solved with CFR-based methods and discrete abstractions. In this project the goal was the other way around. Do not treat Poker as discrete game, from which we remove some actions, but treat it as continuous-action game, which is then discretized during gameplay. This is project is part of my work on the paper ![Regularized policy gradient with learned mixtures of Gaussians for games with continuous actions](https://arxiv.org/abs/2609.36787), which extends the regularized policy-gradient algorithms to continuous action games."
+abstract: "Poker is usually solved with CFR-based methods and discrete abstractions. In this project the goal was the other way around. Do not treat Poker as discrete game, from which we remove some actions, but treat it as continuous-action game, which is then discretized during gameplay. This is project is part of my work on the paper [Regularized policy gradient with learned mixtures of Gaussians for games with continuous actions](https://arxiv.org/abs/2609.36787), which extends the regularized policy-gradient algorithms to continuous action games."
 ---
 
 ### September 30, 2026
