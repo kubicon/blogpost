@@ -2,6 +2,7 @@
 title: 'Pokemon competition'
 description: 'Kaggle Pokemon TCG AI competition'
 pubDate: '2026-10-08'
+abstract: "Kaggle is hosting another round of Pokemon TCG AI competition. In this project, I am trying to leverage my knowledge from game theory and reinforcement learning to train an agent that will learn from self-play to get the best placement I can at the compettiion. The final goal is to have an agent that will both build the deck and then play according to it. TCGs are huge games, much larger than most of the game we have superhuman performance in, like Go, Poker or Stratego."
 ---
 
 ### October 13, 2026

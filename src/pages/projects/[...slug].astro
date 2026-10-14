@@ -13,6 +13,10 @@ type Props = CollectionEntry<'projects'>;
 
 const project = Astro.props;
 const { Content } = await render(project);
+const abstractParagraphs = project.data.abstract
+	?.split(/\n\s*\n/)
+	.map((paragraph) => paragraph.trim())
+	.filter(Boolean);
 ---
 
 <Layout
@@ -21,5 +25,35 @@ const { Content } = await render(project);
 	pubDate={project.data.pubDate}
 	updatedDate={project.data.updatedDate}
 >
+	{
+		abstractParagraphs && abstractParagraphs.length > 0 && (
+			<section class="abstract">
+				<h2>Abstract</h2>
+				{abstractParagraphs.map((paragraph) => <p>{paragraph}</p>)}
+			</section>
+		)
+	}
+	<h2 class="notes-heading">Research notes</h2>
 	<Content />
 </Layout>
+
+<style>
+	.abstract {
+		margin: 0 0 2.5em 0;
+		padding: 1em 1.5em;
+		border-left: 4px solid var(--accent);
+		background: rgba(var(--gray-light), 0.35);
+		border-radius: 0 8px 8px 0;
+	}
+	.abstract h2,
+	.notes-heading {
+		font-size: 1.25em;
+		margin: 0 0 0.5em 0;
+	}
+	.abstract p {
+		margin: 0.5em 0 0 0;
+	}
+	.notes-heading {
+		margin-bottom: 1em;
+	}
+</style>

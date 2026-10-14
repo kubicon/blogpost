@@ -26,6 +26,8 @@ const projects = defineCollection({
 		description: z.string(),
 		pubDate: z.coerce.date(),
 		updatedDate: z.coerce.date().optional(),
+		// Short summary of the project's main goal, shown above the research notes.
+		abstract: z.string().optional(),
 	}),
 });
 

@@ -2,11 +2,12 @@
 title: 'Test-time reinforcement learning in imperfect information games'
 description: ''
 pubDate: '2026-08-30'
+abstract: "Additional search has been crucial part of many superhuman agents in games like Chess, Go, Poker and Stratego. This project tries to improve the search techniques in large imperfect information games. The main goal is to find techniques that have some mild guarantees that the additional search would not break the strategy, which happens with naive methods. This project is part of the paper ![Test-time Reinforcement Learning in Imperfect Information Games ](https://arxiv.org/abs/2608.30635)"
 ---
 
 
 ### August 30, 2026
-#### This summarizes all the progress made before starting this blog. Paper https://arxiv.org/abs/2608.30635
+#### This summarizes all the progress made before starting this blog. Paper ![Test-time Reinforcement Learning in Imperfect Information Games ](https://arxiv.org/abs/2608.30635)
 
 Consider a large games that takes 100 turns and at each turn the branching factor is 10. At the end there are 10^100 possible situations. If you train any reinforcement learning algorithm in self-play, it is likely that in the second half of the game, that most of the trajectories were not seen during training. So when you are playing against an actual opponent, the performance in these parts rely heavily on the generalization from the training.
 

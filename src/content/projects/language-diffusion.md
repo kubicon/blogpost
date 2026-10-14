@@ -2,6 +2,7 @@
 title: 'Diffusion Language Models'
 description: 'Replacing auto-regressive models with diffusion language models.'
 pubDate: '2026-08-13'
+abstract: "Autoregressive models are go-to when it comes to the text generation. Even if this approach is very powerful, as we can see in LLMs, diffusion can serve as an alternative that aleviates some of the problems. The main advantage of diffusion is that their inference can be faster and more token efficient, as the diffusoin can repair it's previous mistakes. However, this comes at a cost, and that is the training objective of diffusion models, which is much more difficult to learn than the autoregressive models. The goal of this project is to explore diffusion models to train small language models and find tricks which may or may not work."
 ---
 
 ### August 29, 2026

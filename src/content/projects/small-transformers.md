@@ -2,9 +2,10 @@
 title: 'Small Transformer'
 description: 'Small transformers for algorithmic tasks'
 pubDate: '2026-08-20'
+abstract: "We have seen that scaling the models up leads to impressive levels of intelligence. However, scaling the models up is not the only way how to achieve intelligence. In this project I experiment with small transformer models to see which algorithmic tricks can actually improve their performance on relatively simple algorithmic tasks like integer addition and multiplication. The final goal is to make small models and apply explainability mechanisms into them, to see how do they actually learn these algorithmic tasks and whether we can learn how to improve training of large models, or how to do these algorithmic tasks more efficiently."
 ---
 
-### August 8, 2026
+### October 8, 2026
 
 I was helping with one paper of a collegue and working on one project for SCIO (company which does a lot of educational projects in Czech Republic) on a project with LLM tutor. So I did not have much time to work on other projects. However, I have tried all the 4 methods with the two-layer transformer and besides diffusion model, which sucks, all were able to reach 7 digit number multiplciation. Even the version which did not do any recurrence nor memory. However, the variance in the training runs is crazy. Some runs finished without learning 4 digit numbers, wheras some went to 8 digits and were still improving (even with the same configuration). I do not like that diffusion models suck, because I like the concept of them, but I guess with these token based tasks, they are just too hard to learn. So this is similar to the langauge diffusion I have tried. But I will try to make it work, because it seems that Diffusion is a good fit for multiplication. 
 
