@@ -27,7 +27,7 @@ const abstractParagraphs = project.data.abstract
 >
 	{
 		abstractParagraphs && abstractParagraphs.length > 0 && (
-			<section class="abstract">
+			<section class="abstract" slot="abstract">
 				<h2>Abstract</h2>
 				{abstractParagraphs.map((paragraph) => <p>{paragraph}</p>)}
 			</section>
@@ -39,21 +39,27 @@ const abstractParagraphs = project.data.abstract
 
 <style>
 	.abstract {
-		margin: 0 0 2.5em 0;
-		padding: 1em 1.5em;
-		border-left: 4px solid var(--accent);
-		background: rgba(var(--gray-light), 0.35);
-		border-radius: 0 8px 8px 0;
+		max-width: 80%;
+		margin: 0 auto 1.5em auto;
+		line-height: 1.6;
+		text-align: justify;
 	}
-	.abstract h2,
-	.notes-heading {
-		font-size: 1.25em;
+	.abstract h2 {
+		font-size: 1em;
+		text-align: center;
 		margin: 0 0 0.5em 0;
 	}
 	.abstract p {
+		font-size: 0.9em;
 		margin: 0.5em 0 0 0;
 	}
 	.notes-heading {
-		margin-bottom: 1em;
+		font-size: 1.25em;
+		margin: 0 0 1em 0;
+	}
+	@media (max-width: 720px) {
+		.abstract {
+			max-width: 100%;
+		}
 	}
 </style>
