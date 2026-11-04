@@ -5,6 +5,13 @@ pubDate: '2026-10-08'
 abstract: "Kaggle is hosting another round of Pokemon TCG AI competition. In this project, I am trying to leverage my knowledge from game theory and reinforcement learning to train an agent that will learn from self-play to get the best placement I can at the compettiion. The final goal is to have an agent that will both build the deck and then play according to it. TCGs are huge games, much larger than most of the game we have superhuman performance in, like Go, Poker or Stratego."
 ---
 
+### November 4, 2026
+Back at work again. However, the results are not very pleasing, because I expected the new model to gain ~150 ELO on the ladder to keep up with the top 3 teams, but it seems we gained only roughly ~50, so it is improvement, but it still keeps up in the 5-10 top teams range and not beyond that.
+
+I have focused on the top Dragapult deck on the ladder. The play of this deck is substantially different from our. He often attacks sooner, he always draw card before acting etc. It does not matter how much imitation I do on this playstyle, my model just does not want to learn this. I am not sure what is holding it back, the values of those two actions are roughly similar, so if you add the imtiation push it should force the net to adopt this playstyle. But this is not happening, the net only overfits on the provided data.
+
+I tried a bold run, which used 50% Dragapult deck and it was also pushed with the imitation loss only on that one deck. I thought that this would push the strategy to adopt the playstyle. But it still does not. I would understand if the playstyle was marginally better, but the guy has 300 more ELO, so it is not like the different actions are a small mistake, quite the contrary.
+
 ### November 2, 2026
 I am travelling, so I am just submitting jobs to the cluster. I am using 4 hour jobs, to keep high priority. The training is going well. Surprisingly, The mirror matchups of version 2 against version 1 have roughly 55% win-rate. So Day 3 and I am already surpassing the version 1. Also some of the decks (like the decks we imitated from the top players), have increased their win-rate against the meta decks from 30% to 70%, which is crazy in my opinion. I will keep the training going while I am travelling and then I will try to submit the most recent model version and hopefully I will be able to reach top 3.
 
