@@ -5,6 +5,19 @@ pubDate: '2026-10-08'
 abstract: "Kaggle is hosting another round of Pokemon TCG AI competition. In this project, I am trying to leverage my knowledge from game theory and reinforcement learning to train an agent that will learn from self-play to get the best placement I can at the compettiion. The final goal is to have an agent that will both build the deck and then play according to it. TCGs are huge games, much larger than most of the game we have superhuman performance in, like Go, Poker or Stratego."
 ---
 
+### November 5, 2026
+I tested newest submission, and for 5 minutes I was number 1 at the ladder by a margin, but that was due to immense luck, not the skill of the bot. After 1 hour I dropped to number 5, and I am not sure whether the model would not fall down a bit more.
+
+The model itself seems to plateau in it's improvements. After 20k iterations, the performance nearly didn't change, so I think the v2 model is almost at it's peak, so I started exploring v3 run.
+
+I think I may have found out why I couldn't mirror the style of the top players. Claude decided that when you need to do 2 actions in order, it will just predict the logits once and after the first action jsut renormalize the probability distribution. I think I do not have to say why this is a bad idea. It always surprises me that Claude seems inhumanely good at some stuff and then it does some stupid mistake like this. Well in v3, I will fix this, and I think this may be the answer to the better performance.
+
+Another 2 changes I am planning for v3 are better history keeping, for example before I just had event that I played energy card, now it also stores which energy card it is and other details. Second change is that I would like to try Muon as optimizer instead of AdamW for the 2d arrays. From some of my earlier experiments in small games, it really did not make a difference, but I would like to test it here, and based on the v2 results, I think that it is worth to do at least one test with it, because I will know in week whether this does something or not.
+
+I will run the v3 training today, I hope that I will manage to catch up to the top teams with this new version, because I do not see much improvements I could do to the bot. Of course I could focus on single deck instead of the general model I use. But I still do not want to do that.
+
+
+
 ### November 4, 2026
 Back at work again. However, the results are not very pleasing, because I expected the new model to gain ~150 ELO on the ladder to keep us with the top 3 teams, but it seems we gained only roughly ~50, so it is improvement, but it still keeps up in the 5-10 top teams range and not beyond that.
 
