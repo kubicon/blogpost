@@ -5,6 +5,32 @@ pubDate: '2026-10-08'
 abstract: "Kaggle is hosting another round of Pokemon TCG AI competition. In this project, I am trying to leverage my knowledge from game theory and reinforcement learning to train an agent that will learn from self-play to get the best placement I can at the compettiion. The final goal is to have an agent that will both build the deck and then play according to it. TCGs are huge games, much larger than most of the game we have superhuman performance in, like Go, Poker or Stratego."
 ---
 
+### November 12, 2026
+I was not a believer, but the v3 is now as strong as v2 even with Dragapult, so we finally reached the point, where v3 is the better for submission. The 14k more iterations for the Dragapult paid off. Surprsingly, even other decks improved their performance which surprised me.
+
+However, I decided to again increase teh weight decay. The 0.01 seem fine, so I pushed it to 0.03 to see how it goes. I will probably not push it much further. Also I found that I did not mask RMS-norms from the weight decay, so some of them almost died. That sucks, I will see whether we can recover it with masking them now, but I do not believe it.
+
+### November 11, 2026
+All of the decks seems to be on-par with the v2. Except Dragapult (the most played deck on ladder). So I decided to the a stint where I will run only that deck. After 7k iterations, no significant gain. I will let it run overnight and hopefully there will be some more gains, but I am pretty skeptical about this.
+
+### November 10, 2026
+I am thinking that the only way we can truly go to rank 1 in this competition is to construct a really good deck. So far, we do not have this and since I do not know anything about the underlying game, I cannot do it on my own. I thought that having an approach that swaps 2-3 cards in a deck to see how it goes would make sense. But then I realized that in order for this to make a reasonable difference, I would have to run at least few thousand training iterations with the deck. This is probably unreasonable right now. Maybe I could just evaluate the decks without training, but that sounds like unfair comparison for the new deck.
+
+to catch up on v3 vs v2. It is still roughly 48% win-rate, so there is some improvement, but now what I hoped for. I am still running the imitation stints, the training etc, but the gains seem stagnating.
+
+I am not sure whether the worse performance is because of Muon, but I do not think so. Some weights are growing quite high, so I increased weight decay from 0.002 to 0.01. It seems it stopped the weights growing. I think Moonshot AI said that they used weight decay 0.1, which seems excessively high, but they have strong models, so they probably know what they are doing.
+
+### November 8, 2026
+The v3 caught to 46% win-rate against v2 quite quickly, but has been stagnating ever since. Even after the 2 more days of training, the win-rate is still at roughly 46%. It does not seem like the network is making some big mistakes, it is just a lot of small tactical mistakes that pile up.
+
+I am quite surprised about it, I thought that the tactical mistakes were because of wrong order based on how I used the v2 multi-select actions, but it seems like that was not the problem. Also I am surprised that the information about opponent deck is basically not used. I really thought that this would be a game-changer, because you adjust your gameplay to the opponent, but it seems like it is not. It is hard for me to tell, whether this is because of the game, or because of the agent.
+
+### November 6, 2026
+I am actually surprised that the deck that locally does not perform that well (Dragapult) just rules on ladder. I am now rank 3-4, often switching between me and one other player. The top 2 are still beyond my reach, but I am running v3 now, so maybe it will improve slightly. I was thinking a bit whether the way I store information about opponent's cards I have seen is not just too noisy, because I use single token for that, which seems highly suboptimal. But first I want to see how well v3 goes, before trying v4 with these additional tokens.
+
+Again, I overestimated how much imitation is actually required. Even after roughly 12k iterations, the teacher performance is almost matched (win-rate 46%). I wanted to imitate for 50k iterations, but I changed it to 30k after this observation. Now after 20k iterations I am running the same test, to see how far we psuhed it, but already just from the logs, it seems that the KL divergence from the teacher is increasing, so the new model is diverging from what the old one did, which may both be good or bad news, but I hope for the good news.
+
+
 ### November 5, 2026
 I tested newest submission, and for 5 minutes I was number 1 at the ladder by a margin, but that was due to immense luck, not the skill of the bot. After 1 hour I dropped to number 5, and I am not sure whether the model would not fall down a bit more.
 
@@ -15,8 +41,6 @@ I think I may have found out why I couldn't mirror the style of the top players.
 Another 2 changes I am planning for v3 are better history keeping, for example before I just had event that I played energy card, now it also stores which energy card it is and other details. Second change is that I would like to try Muon as optimizer instead of AdamW for the 2d arrays. From some of my earlier experiments in small games, it really did not make a difference, but I would like to test it here, and based on the v2 results, I think that it is worth to do at least one test with it, because I will know in week whether this does something or not.
 
 I will run the v3 training today, I hope that I will manage to catch up to the top teams with this new version, because I do not see much improvements I could do to the bot. Of course I could focus on single deck instead of the general model I use. But I still do not want to do that.
-
-
 
 ### November 4, 2026
 Back at work again. However, the results are not very pleasing, because I expected the new model to gain ~150 ELO on the ladder to keep us with the top 3 teams, but it seems we gained only roughly ~50, so it is improvement, but it still keeps up in the 5-10 top teams range and not beyond that.
